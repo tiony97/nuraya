@@ -76,7 +76,11 @@ $(document).ready(() => {
       "-=.3"
     )
 
-    .to("#home-banner .banner-image", { opacity: 0, duration: 0.7 }, "-=.1")
+    .to(
+      "#home-banner .banner-image, .slide",
+      { opacity: 0, duration: 0.7 },
+      "-=.1"
+    )
 
     .to(
       ".stagger-bars .bar",
@@ -207,4 +211,123 @@ $(document).ready(() => {
       $("body").removeClass("hideScroll");
     }, 1000);
   });
+});
+
+/* CASE STUDY PAGE */
+$(document).ready(() => {
+  // Initialize variables
+  let currentSlide = 1;
+  const totalSlides = $(".slide").length;
+  let isAnimating = false;
+
+  // Update slide number display
+  function updateSlideNumber() {
+    $(".slider-number").text(`${currentSlide} / ${totalSlides}`);
+  }
+
+  // Update progress bar
+  function updateProgressBar() {
+    const progress = ((currentSlide - 1) / (totalSlides - 1)) * 100;
+    $(".slider-progress-bar").css("width", `${progress}%`);
+  }
+
+  // Update button states
+  function updateButtonStates() {
+    if (currentSlide === 1) {
+      $("#prev-slide").prop("disabled", true);
+    } else {
+      $("#prev-slide").prop("disabled", false);
+    }
+
+    if (currentSlide === totalSlides) {
+      $("#next-slide").prop("disabled", true);
+    } else {
+      $("#next-slide").prop("disabled", false);
+    }
+  }
+
+  // Navigate to specific slide
+  function goToSlide(slideNumber) {
+    if (isAnimating || slideNumber < 1 || slideNumber > totalSlides) return;
+
+    isAnimating = true;
+
+    // Hide current slide
+    gsap.to($(".slide.active"), {
+      opacity: 0,
+      duration: 0.5,
+      ease: "power2.inOut",
+      onComplete: function () {
+        $(".slide").removeClass("active");
+
+        // Show new slide
+        $(`.slide[data-slide="${slideNumber}"]`).addClass("active");
+        currentSlide = slideNumber;
+
+        gsap.fromTo(
+          $(".slide.active"),
+          { opacity: 0, y: 50 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            ease: "power2.out",
+            onComplete: function () {
+              isAnimating = false;
+            },
+          }
+        );
+
+        updateSlideNumber();
+        updateProgressBar();
+        updateButtonStates();
+      },
+    });
+  }
+
+  // Next slide
+  function nextSlide() {
+    if (currentSlide < totalSlides) {
+      goToSlide(currentSlide + 1);
+    }
+  }
+
+  // Previous slide
+  function prevSlide() {
+    if (currentSlide > 1) {
+      goToSlide(currentSlide - 1);
+    }
+  }
+
+  // Initialize slider
+  function initSlider() {
+    updateSlideNumber();
+    updateProgressBar();
+    updateButtonStates();
+
+    // Add event listeners
+    $("#next-slide").on("click", nextSlide);
+    $("#prev-slide").on("click", prevSlide);
+
+    // Keyboard navigation
+    $(document).on("keydown", function (e) {
+      if (e.key === "ArrowRight") {
+        nextSlide();
+      } else if (e.key === "ArrowLeft") {
+        prevSlide();
+      }
+    });
+
+    // Header scroll effect
+    $(window).on("scroll", function () {
+      if ($(window).scrollTop() > 50) {
+        $(".case-study-header").addClass("scrolled");
+      } else {
+        $(".case-study-header").removeClass("scrolled");
+      }
+    });
+  }
+
+  // Initialize the slider when document is ready
+  initSlider();
 });
