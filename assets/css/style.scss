@@ -49,7 +49,7 @@ body {
   left: 0;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  z-index: 9999;
+  z-index: 99999999;
   pointer-events: none;
 }
 
@@ -147,10 +147,15 @@ ul {
   left: 0;
   width: 100%;
   height: 0;
-  z-index: 99;
+  z-index: 9999;
   overflow: hidden;
-  transition: all 0.5s ease-in-out;
   background: var(--background-color);
+
+  // Ensure it's visible when active
+  &.active {
+    height: 100vh;
+  }
+
   .overlay-wrapper {
     position: relative;
     width: 100%;
@@ -167,7 +172,8 @@ ul {
     }
 
     .container {
-      z-index: 3;
+      z-index: 10;
+      position: relative;
       .overlay-header {
         opacity: 0;
         .overlay-logo {
@@ -246,14 +252,22 @@ ul {
 
 //Staggered Bars
 .stagger-bars {
-  z-index: 4;
-  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 99998;
+  pointer-events: none;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+
   .bar {
     background: var(--primary-accent-color);
-    transition: all 0.5s ease-in-out;
     width: 100%;
-    height: 0;
-    overflow: hidden;
+    height: 100%;
+    transform: scaleY(0);
+    transform-origin: top;
   }
 }
 
@@ -336,6 +350,90 @@ header {
       }
     }
   }
+}
+
+/* INTRO ANIMATION STYLES */
+#intro-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: var(--background-color);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    position: absolute;
+
+    &.intro-line {
+      width: auto;
+      height: 90vh;
+      opacity: 0;
+    }
+
+    &.intro-rect {
+      width: 100%;
+      height: auto;
+      opacity: 0;
+    }
+
+    &.intro-ppl {
+      width: 90%;
+      //max-width: 800px;
+      height: auto;
+      opacity: 0;
+    }
+
+    &.intro-logo {
+      width: 70%;
+      //max-width: 500px;
+      height: auto;
+      opacity: 0;
+    }
+  }
+}
+
+/* Hide content during intro */
+body:not(.intro-complete) {
+  overflow: hidden;
+
+  main,
+  header,
+  footer {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  /* Stagger bars should always be visible for animations */
+  .stagger-bars {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+body.intro-complete {
+  overflow: auto;
+
+  main,
+  header,
+  footer {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  #intro-animation {
+    display: none;
+  }
+}
+
+/* Ensure banner elements are hidden initially */
+#home-banner .banner-image,
+#home-banner .banner-title,
+#home-banner .banner-content {
+  opacity: 0;
 }
 
 //Home page banner

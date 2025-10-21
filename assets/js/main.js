@@ -1,309 +1,513 @@
 /* CUSTOM CURSOR */
-$(document).ready(() => {
+$(document).ready(function () {
+  // Initialize cursor
   const cursorDot = document.querySelector("[data-cursor-dot]");
   const cursorOutline = document.querySelector("[data-cursor-outline]");
-  let links = document.querySelectorAll("a");
-  let titles = document.querySelectorAll("h1");
-  const menuOpen = document.querySelector("#open-menu");
-  const menuClose = document.querySelector("#close-menu");
 
-  window.addEventListener("mousemove", (e) => {
-    const posX = e.clientX;
-    const posY = e.clientY;
+  if (cursorDot && cursorOutline) {
+    window.addEventListener("mousemove", function (e) {
+      const posX = e.clientX;
+      const posY = e.clientY;
 
-    cursorDot.style.left = `${posX}px`;
-    cursorDot.style.top = `${posY}px`;
+      cursorDot.style.left = `${posX}px`;
+      cursorDot.style.top = `${posY}px`;
 
-    //cursorOutline.style.left = `${posX}px`;
-    //cursorOutline.style.top = `${posY}px`;
-
-    cursorOutline.animate(
-      {
-        left: `${posX}px`,
-        top: `${posY}px`,
-      },
-      { duration: 300, fill: "forwards" }
-    );
-  });
-
-  //Enlarge the cursor outline when hovering the links below
-  links.forEach((link) => {
-    link.addEventListener("mousemove", () => {
-      cursorOutline.classList.add("grow");
-    });
-    link.addEventListener("mouseleave", () => {
-      cursorOutline.classList.remove("grow");
-    });
-  });
-  menuOpen.addEventListener("mousemove", () => {
-    cursorOutline.classList.add("grow");
-  });
-  menuOpen.addEventListener("mouseleave", () => {
-    cursorOutline.classList.remove("grow");
-  });
-  menuClose.addEventListener("mousemove", () => {
-    cursorOutline.classList.add("grow");
-  });
-  menuClose.addEventListener("mouseleave", () => {
-    cursorOutline.classList.remove("grow");
-  });
-});
-
-/* OVERLAY MENU REVEAL ANIMATION */
-$(document).ready(() => {
-  let animation = gsap.timeline({ paused: true, reversed: true });
-  animation
-    .to("header", { height: 0, opacity: 0, duration: 0.5, ease: "power2.out" })
-
-    .to(
-      "#home-banner .container h1",
-      {
-        opacity: 0,
-        duration: 0.5,
-        y: -100,
-        stagger: { each: 0.1, ease: "power1.inout" },
-      },
-      "+=.1"
-    )
-
-    .to(
-      "#home-banner .container .banner-content",
-      {
-        opacity: 0,
-        duration: 0.3,
-        y: 100,
-      },
-      "-=.3"
-    )
-
-    .to(
-      "#home-banner .banner-image, .slide",
-      { opacity: 0, duration: 0.7 },
-      "-=.1"
-    )
-
-    .to(
-      ".stagger-bars .bar",
-      {
-        height: "100vh",
-        duration: 0.3,
-        stagger: { each: 0.1, ease: "power1.inout" },
-      },
-      "-=.1"
-    )
-
-    .to(
-      ".overlay-menu",
-      { height: "100vh", duration: 0.5, ease: "power2.inout" },
-      "-=.3"
-    )
-
-    .to(
-      ".overlay-header",
-      { opacity: 1, duration: 0.5, stagger: { each: 0.2, ease: "power2.in" } },
-      "-=.3"
-    )
-
-    .from(
-      ".overlay-menu .overlay-image",
-      {
-        opacity: 0,
-        duration: 0.5,
-      },
-      "-=.1"
-    );
-
-  $("#open-menu").click(() => {
-    animation.play();
-
-    setTimeout(() => {
-      $("body").addClass("hideScroll");
-    }, 0);
-  });
-
-  $("#close-menu").click(() => {
-    animation.reverse();
-    setTimeout(() => {
-      $("body").removeClass("hideScroll");
-    }, 3000);
-  });
-
-  $(".overlay-menu a").click(() => {
-    animation.reverse();
-    setTimeout(() => {
-      $("body").removeClass("hideScroll");
-    }, 2500);
-  });
-});
-
-/* CANVAS MENU ANIMATION */
-$(document).ready(() => {
-  let tl = gsap.timeline({ paused: true });
-
-  tl.to("#landing .landingWrapper, nav", 0.3, {
-    opacity: 0,
-    ease: "Expo.easeInOut",
-  })
-    .to(
-      "#landing .overlay",
-      0.3,
-      {
-        zIndex: 7,
-        ease: "Expo.easeInOut",
-      },
-      "-=.3"
-    )
-    .to("#overlayMenu", 0.8, {
-      zIndex: 10,
-      right: "0%",
-      opacity: 1,
-      ease: "Expo.easeInOut",
-    })
-    .to(".overlayLink", 0.5, {
-      opacity: 1,
-      ease: "Expo.easeInOut",
-      stagger: {
-        amount: 0.2,
-      },
-    })
-    .to(
-      ".socialLinks a",
-      0.5,
-      {
-        opacity: 1,
-        ease: "Expo.easeInOut",
-        stagger: {
-          amount: 0.2,
+      cursorOutline.animate(
+        {
+          left: `${posX}px`,
+          top: `${posY}px`,
         },
-      },
-      "-=.5"
-    )
-    .to(
-      "#overlayMenu p",
-      0.3,
-      {
-        opacity: 1,
-        ease: "Expo.easeInOut",
-      },
-      "-=.3"
-    )
-    .to(
-      "#menuClose",
-      0.2,
-      {
-        opacity: 1,
-        ease: "Expo.easeInOut",
-      },
-      "-=.2"
+        { duration: 300, fill: "forwards" }
+      );
+    });
+
+    // Add hover effects
+    const interactiveElements = document.querySelectorAll(
+      "a, button, .menu-trigger-button"
     );
+    interactiveElements.forEach((element) => {
+      element.addEventListener("mouseenter", function () {
+        cursorOutline.classList.add("grow");
+      });
+      element.addEventListener("mouseleave", function () {
+        cursorOutline.classList.remove("grow");
+      });
+    });
+  }
 
-  tl.reverse();
-
-  $("#menuOpen").click(() => {
-    tl.play();
-    setTimeout(() => {
-      $("body").addClass("hideScroll");
-    }, 0);
-  });
-  $("#menuClose").click(() => {
-    tl.reverse();
-    setTimeout(() => {
-      $("body").removeClass("hideScroll");
-    }, 1000);
-  });
+  // Check if we're on homepage (has intro animation) or case study page
+  if ($("#intro-animation").length > 0) {
+    console.log("Homepage detected - starting intro animation");
+    setTimeout(initIntroAnimation, 100);
+  } else if ($(".case-study-slider").length > 0) {
+    console.log("Case study page detected - showing content immediately");
+    initCaseStudyPage();
+  } else {
+    console.log("Other page detected - showing content immediately");
+    showContentImmediately();
+  }
 });
 
-/* CASE STUDY PAGE */
-$(document).ready(() => {
-  // Initialize variables
+/* INTRO ANIMATION - Only for homepage */
+function initIntroAnimation() {
+  console.log("Starting intro animation");
+
+  // Reset states
+  gsap.set("main, header, footer", { opacity: 0, visibility: "hidden" });
+  gsap.set(".stagger-bars .bar", { scaleY: 0, transformOrigin: "top" });
+  gsap.set("#intro-animation", { opacity: 1, visibility: "visible" });
+  gsap.set("#intro-animation img", { opacity: 0 });
+
+  // Create main intro timeline
+  const introTL = gsap.timeline({
+    onComplete: function () {
+      console.log("Intro animation complete");
+      document.body.classList.add("intro-complete");
+      initBannerAnimation();
+    },
+  });
+
+  // Sequence the animations
+  introTL
+    // Animate intro images
+    .to(".intro-line", { opacity: 1, duration: 1.5, ease: "power2.out" })
+    .to(
+      ".intro-line",
+      { opacity: 0, duration: 0.8, ease: "power2.in" },
+      "+=0.5"
+    )
+
+    .to(".intro-rect", { opacity: 1, duration: 1.2, ease: "power2.out" })
+    .to(
+      ".intro-rect",
+      { opacity: 0, duration: 0.8, ease: "power2.in" },
+      "+=0.3"
+    )
+
+    .to(".intro-ppl", { opacity: 1, duration: 1.2, ease: "power2.out" })
+    .to(".intro-ppl", { opacity: 0, duration: 0.8, ease: "power2.in" }, "+=0.3")
+
+    .to(".intro-logo", { opacity: 1, duration: 1.2, ease: "power2.out" })
+    .to(
+      ".intro-logo",
+      { opacity: 0, duration: 0.8, ease: "power2.in" },
+      "+=0.3"
+    )
+
+    // Stagger bars animation
+    .to(".stagger-bars .bar", {
+      scaleY: 1,
+      duration: 0.8,
+      stagger: {
+        each: 0.1,
+        from: "center",
+        ease: "power3.inOut",
+      },
+    })
+    .to(".stagger-bars .bar", {
+      scaleY: 0,
+      duration: 0.6,
+      stagger: {
+        each: 0.08,
+        from: "edges",
+        ease: "power3.inOut",
+      },
+    })
+
+    // Hide intro container
+    .to("#intro-animation", {
+      opacity: 0,
+      visibility: "hidden",
+      duration: 0.5,
+      ease: "power2.out",
+    });
+}
+
+/* CASE STUDY PAGE - Immediate content display */
+function initCaseStudyPage() {
+  console.log("Initializing case study page");
+
+  // Show all content immediately
+  gsap.set("main, header, footer, .slider-controls, .slider-progress", {
+    opacity: 1,
+    visibility: "visible",
+  });
+
+  // Initialize case study slider
+  initCaseStudySlider();
+}
+
+/* IMMEDIATE CONTENT DISPLAY - For non-homepage pages */
+function showContentImmediately() {
+  console.log("Showing content immediately");
+  gsap.set("main, header, footer", {
+    opacity: 1,
+    visibility: "visible",
+  });
+}
+
+/* BANNER ANIMATION - Only for homepage */
+function initBannerAnimation() {
+  console.log("Starting banner animation");
+
+  const bannerTL = gsap.timeline();
+
+  bannerTL
+    // Show main content
+    .to("main, header, footer", {
+      opacity: 1,
+      visibility: "visible",
+      duration: 0.5,
+    })
+    // Animate banner elements
+    .fromTo(
+      "#home-banner .banner-image",
+      { opacity: 0, scale: 0.8 },
+      { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" }
+    )
+    .fromTo(
+      "#home-banner .banner-title",
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power2.out",
+      },
+      "-=0.5"
+    )
+    .fromTo(
+      "#home-banner .banner-content",
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" },
+      "-=0.3"
+    );
+}
+
+/* OVERLAY MENU */
+$(document).ready(function () {
+  let menuTL;
+
+  function createMenuAnimation() {
+    return gsap.timeline({
+      paused: true,
+      onStart: function () {
+        console.log("Menu opening started");
+        $("body").addClass("hideScroll");
+      },
+      onReverseComplete: function () {
+        console.log("Menu closing completed");
+        $("body").removeClass("hideScroll");
+        // Reset the timeline so it can be played again
+        menuTL.progress(0).pause();
+      },
+    });
+  }
+
+  function initMenuAnimation() {
+    menuTL = createMenuAnimation();
+
+    // Build menu animation sequence
+    menuTL
+      // Hide main content
+      .to("header", {
+        opacity: 0,
+        y: -50,
+        duration: 0.4,
+        ease: "power2.inOut",
+      })
+
+      // Different content hiding based on page type
+      .to(
+        $("#home-banner").length
+          ? "#home-banner .container h1"
+          : ".case-study-slider",
+        {
+          opacity: 0,
+          y: -30,
+          duration: 0.4,
+          stagger: 0.1,
+          ease: "power2.inOut",
+        },
+        "-=0.2"
+      )
+
+      .to(
+        $("#home-banner").length
+          ? "#home-banner .banner-content"
+          : ".slider-controls",
+        {
+          opacity: 0,
+          y: 30,
+          duration: 0.4,
+          ease: "power2.inOut",
+        },
+        "-=0.3"
+      )
+
+      .to(
+        $("#home-banner").length
+          ? "#home-banner .banner-image"
+          : ".slider-progress",
+        {
+          opacity: 0,
+          duration: 0.5,
+          ease: "power2.inOut",
+        },
+        "-=0.3"
+      )
+
+      // Stagger bars appear
+      .to(".stagger-bars .bar", {
+        scaleY: 1,
+        duration: 0.3,
+        stagger: {
+          each: 0.06,
+          from: "center",
+          ease: "power2.inOut",
+        },
+      })
+
+      // Stagger bars disappear and show menu
+      .to(".stagger-bars .bar", {
+        scaleY: 0,
+        duration: 0.3,
+        stagger: {
+          each: 0.05,
+          from: "edges",
+          ease: "power2.inOut",
+        },
+      })
+
+      // Show overlay menu
+      .to(".overlay-menu", {
+        height: "100vh",
+        duration: 0.4,
+        ease: "power2.out",
+      })
+
+      // Show menu content
+      .to(
+        ".overlay-header",
+        {
+          opacity: 1,
+          duration: 0.4,
+          ease: "power2.out",
+        },
+        "-=0.2"
+      )
+      .fromTo(
+        ".overlay-menu-nav .menu-item",
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          stagger: 0.1,
+          ease: "power2.out",
+        },
+        "-=0.1"
+      )
+      .to(
+        ".faq",
+        {
+          opacity: 1,
+          duration: 0.4,
+          ease: "power2.out",
+        },
+        "-=0.2"
+      );
+  }
+
+  // Initialize menu animation
+  initMenuAnimation();
+
+  // Menu event handlers
+  $("#open-menu").on("click", function () {
+    console.log("Opening menu - timeline progress:", menuTL.progress());
+
+    // If timeline is completed or reversed, reinitialize it
+    if (menuTL.progress() === 1 || menuTL.reversed()) {
+      console.log("Reinitializing menu animation");
+      menuTL.kill();
+      initMenuAnimation();
+    }
+
+    menuTL.play();
+  });
+
+  $("#close-menu").on("click", function () {
+    console.log("Closing menu - timeline progress:", menuTL.progress());
+
+    if (menuTL.progress() > 0) {
+      menuTL.reverse();
+    } else {
+      forceCloseMenu();
+    }
+  });
+
+  $(".overlay-menu-nav a").on("click", function (e) {
+    e.preventDefault();
+    console.log("Menu link clicked");
+
+    if (menuTL.progress() > 0) {
+      menuTL.reverse();
+    } else {
+      forceCloseMenu();
+    }
+
+    // Optional: Navigate after animation
+    const href = $(this).attr("href");
+    if (href && href !== "#") {
+      setTimeout(() => {
+        window.location.href = href;
+      }, 1000);
+    }
+  });
+
+  // Force close function as backup
+  function forceCloseMenu() {
+    console.log("Force closing menu");
+
+    const closeTL = gsap.timeline();
+
+    closeTL
+      .to(".overlay-header, .overlay-menu-nav .menu-item, .faq", {
+        opacity: 0,
+        duration: 0.3,
+      })
+      .to(".overlay-menu", {
+        height: "0",
+        duration: 0.4,
+      })
+      .to(".stagger-bars .bar", {
+        scaleY: 0,
+        duration: 0.3,
+      })
+      .to("header", {
+        opacity: 1,
+        y: 0,
+        duration: 0.4,
+      })
+
+      // Show different content based on page type
+      .to(
+        $("#home-banner").length
+          ? "#home-banner .banner-image"
+          : ".case-study-slider",
+        {
+          opacity: 1,
+          duration: 0.5,
+        }
+      )
+      .to(
+        $("#home-banner").length
+          ? "#home-banner .container h1"
+          : ".slider-controls",
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          stagger: 0.1,
+        }
+      )
+      .to(
+        $("#home-banner").length
+          ? "#home-banner .banner-content"
+          : ".slider-progress",
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.4,
+        }
+      )
+      .call(function () {
+        $("body").removeClass("hideScroll");
+        // Reinitialize menu animation for next use
+        menuTL.kill();
+        initMenuAnimation();
+      });
+  }
+});
+
+/* CASE STUDY SLIDER */
+function initCaseStudySlider() {
+  console.log("Initializing case study slider");
+
   let currentSlide = 1;
-  const totalSlides = $(".slide").length;
+  const slides = $(".slide");
+  const totalSlides = slides.length;
   let isAnimating = false;
 
-  // Update slide number display
-  function updateSlideNumber() {
+  // Update UI functions
+  function updateUI() {
     $(".slider-number").text(`${currentSlide} / ${totalSlides}`);
-  }
-
-  // Update progress bar
-  function updateProgressBar() {
     const progress = ((currentSlide - 1) / (totalSlides - 1)) * 100;
     $(".slider-progress-bar").css("width", `${progress}%`);
+
+    // Update button states
+    $("#prev-slide").prop("disabled", currentSlide === 1);
+    $("#next-slide").prop("disabled", currentSlide === totalSlides);
   }
 
-  // Update button states
-  function updateButtonStates() {
-    if (currentSlide === 1) {
-      $("#prev-slide").prop("disabled", true);
-    } else {
-      $("#prev-slide").prop("disabled", false);
-    }
-
-    if (currentSlide === totalSlides) {
-      $("#next-slide").prop("disabled", true);
-    } else {
-      $("#next-slide").prop("disabled", false);
-    }
-  }
-
-  // Navigate to specific slide
+  // Slide navigation
   function goToSlide(slideNumber) {
     if (isAnimating || slideNumber < 1 || slideNumber > totalSlides) return;
 
     isAnimating = true;
+    const direction = slideNumber > currentSlide ? 1 : -1;
 
-    // Hide current slide
+    // Hide current active slide
     gsap.to($(".slide.active"), {
       opacity: 0,
-      duration: 0.5,
+      x: -100 * direction,
+      duration: 0.6,
       ease: "power2.inOut",
       onComplete: function () {
         $(".slide").removeClass("active");
 
         // Show new slide
-        $(`.slide[data-slide="${slideNumber}"]`).addClass("active");
+        const newSlide = $(`.slide[data-slide="${slideNumber}"]`);
+        newSlide.addClass("active");
         currentSlide = slideNumber;
 
         gsap.fromTo(
-          $(".slide.active"),
-          { opacity: 0, y: 50 },
+          newSlide,
+          {
+            opacity: 0,
+            x: 100 * direction,
+          },
           {
             opacity: 1,
-            y: 0,
+            x: 0,
             duration: 0.7,
             ease: "power2.out",
             onComplete: function () {
               isAnimating = false;
+              updateUI();
             },
           }
         );
-
-        updateSlideNumber();
-        updateProgressBar();
-        updateButtonStates();
       },
     });
   }
 
-  // Next slide
   function nextSlide() {
-    if (currentSlide < totalSlides) {
+    if (currentSlide < totalSlides && !isAnimating) {
       goToSlide(currentSlide + 1);
     }
   }
 
-  // Previous slide
   function prevSlide() {
-    if (currentSlide > 1) {
+    if (currentSlide > 1 && !isAnimating) {
       goToSlide(currentSlide - 1);
     }
   }
 
   // Initialize slider
   function initSlider() {
-    updateSlideNumber();
-    updateProgressBar();
-    updateButtonStates();
+    updateUI();
 
     // Add event listeners
     $("#next-slide").on("click", nextSlide);
@@ -317,17 +521,8 @@ $(document).ready(() => {
         prevSlide();
       }
     });
-
-    // Header scroll effect
-    $(window).on("scroll", function () {
-      if ($(window).scrollTop() > 50) {
-        $(".case-study-header").addClass("scrolled");
-      } else {
-        $(".case-study-header").removeClass("scrolled");
-      }
-    });
   }
 
-  // Initialize the slider when document is ready
+  // Initialize the slider
   initSlider();
-});
+}

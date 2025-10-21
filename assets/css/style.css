@@ -51,7 +51,7 @@ body * {
   left: 0;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  z-index: 9999;
+  z-index: 99999999;
   pointer-events: none;
 }
 
@@ -149,10 +149,12 @@ ul {
   left: 0;
   width: 100%;
   height: 0;
-  z-index: 99;
+  z-index: 9999;
   overflow: hidden;
-  transition: all 0.5s ease-in-out;
   background: var(--background-color);
+}
+.overlay-menu.active {
+  height: 100vh;
 }
 .overlay-menu .overlay-wrapper {
   position: relative;
@@ -172,7 +174,8 @@ ul {
   z-index: 0;
 }
 .overlay-menu .overlay-wrapper .container {
-  z-index: 3;
+  z-index: 10;
+  position: relative;
 }
 .overlay-menu .overlay-wrapper .container .overlay-header {
   opacity: 0;
@@ -234,15 +237,22 @@ ul {
 }
 
 .stagger-bars {
-  z-index: 4;
-  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 99998;
+  pointer-events: none;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
 }
 .stagger-bars .bar {
   background: var(--primary-accent-color);
-  transition: all 0.5s ease-in-out;
   width: 100%;
-  height: 0;
-  overflow: hidden;
+  height: 100%;
+  transform: scaleY(0);
+  transform-origin: top;
 }
 
 .site-btn {
@@ -329,6 +339,79 @@ header .container .header-nav .slider-nav-btn:hover {
 header .container .header-nav .slider-nav-btn :disabled {
   opacity: 0.3;
   cursor: not-allowed;
+}
+
+/* INTRO ANIMATION STYLES */
+#intro-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: var(--background-color);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#intro-animation img {
+  position: absolute;
+}
+#intro-animation img.intro-line {
+  width: auto;
+  height: 90vh;
+  opacity: 0;
+}
+#intro-animation img.intro-rect {
+  width: 100%;
+  height: auto;
+  opacity: 0;
+}
+#intro-animation img.intro-ppl {
+  width: 90%;
+  height: auto;
+  opacity: 0;
+}
+#intro-animation img.intro-logo {
+  width: 70%;
+  height: auto;
+  opacity: 0;
+}
+
+/* Hide content during intro */
+body:not(.intro-complete) {
+  overflow: hidden;
+  /* Stagger bars should always be visible for animations */
+}
+body:not(.intro-complete) main,
+body:not(.intro-complete) header,
+body:not(.intro-complete) footer {
+  opacity: 0;
+  visibility: hidden;
+}
+body:not(.intro-complete) .stagger-bars {
+  opacity: 1;
+  visibility: visible;
+}
+
+body.intro-complete {
+  overflow: auto;
+}
+body.intro-complete main,
+body.intro-complete header,
+body.intro-complete footer {
+  opacity: 1;
+  visibility: visible;
+}
+body.intro-complete #intro-animation {
+  display: none;
+}
+
+/* Ensure banner elements are hidden initially */
+#home-banner .banner-image,
+#home-banner .banner-title,
+#home-banner .banner-content {
+  opacity: 0;
 }
 
 #home-banner {
