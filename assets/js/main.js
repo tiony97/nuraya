@@ -70,12 +70,13 @@ function initIntroAnimation() {
   // Sequence the animations
   introTL
     // Animate intro images
-    .to(".intro-line", { opacity: 1, duration: 1.5, ease: "power2.out" })
-    .to(
-      ".intro-line",
-      { opacity: 0, duration: 0.8, ease: "power2.in" },
-      "+=0.5"
-    )
+    .to(".intro-line", {
+      opacity: 1,
+      height: "80vh",
+      duration: 1.5,
+      ease: "power2.out",
+    })
+    .to(".intro-line", { opacity: 0, duration: 1, ease: "power2.in" }, "+=0.5")
 
     .to(".intro-rect", { opacity: 1, duration: 1.2, ease: "power2.out" })
     .to(
@@ -261,7 +262,7 @@ $(document).ready(function () {
       // Stagger bars appear
       .to(".stagger-bars .bar", {
         scaleY: 1,
-        duration: 0.3,
+        duration: 1,
         stagger: {
           each: 0.06,
           from: "center",
@@ -272,7 +273,7 @@ $(document).ready(function () {
       // Stagger bars disappear and show menu
       .to(".stagger-bars .bar", {
         scaleY: 0,
-        duration: 0.3,
+        duration: 1,
         stagger: {
           each: 0.05,
           from: "edges",
@@ -297,13 +298,13 @@ $(document).ready(function () {
         },
         "-=0.2"
       )
+
       .fromTo(
         ".overlay-menu-nav .menu-item",
-        { opacity: 0, y: 20 },
+        { opacity: 0 },
         {
           opacity: 1,
-          y: 0,
-          duration: 0.5,
+          duration: 0.8,
           stagger: 0.1,
           ease: "power2.out",
         },
@@ -317,6 +318,16 @@ $(document).ready(function () {
           ease: "power2.out",
         },
         "-=0.2"
+      )
+      .fromTo(
+        ".overlay-image",
+        { opacity: 0 },
+        {
+          opacity: 1,
+          duration: 0.8,
+          ease: "power2.out",
+        },
+        "-=0.1"
       );
   }
 
