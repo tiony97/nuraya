@@ -296,6 +296,37 @@ ul {
   }
 }
 
+/* Scroll to Top Button */
+.scroll-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: var(--primary-accent-color);
+  color: var(--background-color);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+  z-index: 99999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  &:hover {
+    background: var(--secondary-accent-color);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  }
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
 //Header
 header {
   position: absolute;
@@ -1066,6 +1097,12 @@ footer {
     border-radius: 40px;
     font-size: 10px;
     letter-spacing: 5px;
+  }
+  .scroll-to-top {
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
   }
   //Overlay Menu
   .overlay-menu {

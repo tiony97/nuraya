@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="./assets/css/all.min.css" />
     <link rel="stylesheet" href="./assets/css/locomotive-scroll.min.css" />
     <link rel="stylesheet" href="./assets/css/tailwind.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <link rel="stylesheet" href="./assets/css/style.css" />
     <link
       rel="shortcut icon"
@@ -94,6 +95,25 @@
       <div class="bar w-full h-full"></div>
     </div>
 
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" class="scroll-to-top">
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M12 20L12 4M12 4L5 11M12 4L19 11"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </button>
+
     <!--Header-->
     <header id="site-header">
       <div class="container">
@@ -105,7 +125,6 @@
       </div>
     </header>
 
-    <!--Banner-->
     <main>
       <!--Banner-->
       <section id="home-banner">
@@ -136,7 +155,7 @@
       <!--Brand Section-->
       <section id="brand-intro">
         <div class="container">
-          <h1>BRAND STORY</h1>
+          <h1 data-aos="fade-up" data-aos-duration="1000">BRAND STORY</h1>
         </div>
       </section>
 
@@ -150,20 +169,32 @@
 
         <div id="brand-story">
           <div class="container">
-            <div class="title-section">
+            <div
+              class="title-section"
+              data-aos="fade-up"
+              data-aos-duration="1000"
+            >
               <h5>ABOUT US</h5>
               <h2>Brand story</h2>
               <img src="./assets/images/line.png" alt="line" class="line" />
             </div>
             <div class="content">
-              <p>
+              <p
+                data-aos="fade-up"
+                data-aos-duration="1000"
+                data-aos-delay="200"
+              >
                 Nuraya is a Management Consulting firm that helps businesses
                 unlock sustainable, profitable growth by transforming deep
                 consumer insight into winning strategies across the full value
                 chain — from brand and marketing to sales, finance, and supply
                 chain.
               </p>
-              <p>
+              <p
+                data-aos="fade-up"
+                data-aos-duration="1000"
+                data-aos-delay="400"
+              >
                 What sets us apart is our consumer-first clarity, sharp
                 strategic focus, a hands-on execution partnership, and a
                 long-term commitment to delivering results — not just
@@ -175,12 +206,17 @@
 
         <div id="mission">
           <div class="container">
-            <div class="title">
+            <div class="title" data-aos="fade-right" data-aos-duration="1000">
               <h2>MISSION</h2>
               <img src="./assets/images/line.png" alt="line" class="line" />
             </div>
-            <p class="content">
-               We bring clarity to complexity — helping businesses grow with
+            <p
+              class="content"
+              data-aos="fade-left"
+              data-aos-duration="1000"
+              data-aos-delay="300"
+            >
+              We bring clarity to complexity — helping businesses grow with
               purpose by deeply understanding their consumers and translating
               that insight into end-to-end strategy and execution across every
               function of the business.
@@ -190,13 +226,13 @@
 
         <div id="team">
           <div class="wrapper">
-            <div class="title">
+            <div class="title" data-aos="fade-up" data-aos-duration="1000">
               <h2>THE TEAM</h2>
               <img src="./assets/images/line.png" alt="line" class="line" />
             </div>
 
             <div class="team-members-grid">
-              <div class="member">
+              <div class="member" data-aos="fade-up" data-aos-duration="800">
                 <div class="details">
                   <h6>Lydia Kakutwi</h6>
                   <p>Founding Partner</p>
@@ -206,7 +242,12 @@
                   <img src="./assets/images/line.png" alt="line" />
                 </a>
               </div>
-              <div class="member">
+              <div
+                class="member"
+                data-aos="fade-up"
+                data-aos-duration="800"
+                data-aos-delay="100"
+              >
                 <div class="details">
                   <h6>Njiraini Marima</h6>
                   <p>Founding Partner</p>
@@ -216,7 +257,12 @@
                   <img src="./assets/images/line.png" alt="line" />
                 </a>
               </div>
-              <div class="member">
+              <div
+                class="member"
+                data-aos="fade-up"
+                data-aos-duration="800"
+                data-aos-delay="200"
+              >
                 <div class="details">
                   <h6>Paul Murugu</h6>
                   <p>Founding Partner</p>
@@ -229,7 +275,12 @@
             </div>
 
             <div class="team-members-grid">
-              <div class="member">
+              <div
+                class="member"
+                data-aos="fade-up"
+                data-aos-duration="800"
+                data-aos-delay="300"
+              >
                 <div class="details">
                   <h6>Grace Roimen</h6>
                   <p>Founding Partner</p>
@@ -239,7 +290,12 @@
                   <img src="./assets/images/line.png" alt="line" />
                 </a>
               </div>
-              <div class="member">
+              <div
+                class="member"
+                data-aos="fade-up"
+                data-aos-duration="800"
+                data-aos-delay="400"
+              >
                 <div class="details">
                   <h6>Brenda Mwancha</h6>
                   <p>Founding Partner</p>
@@ -261,16 +317,38 @@
           alt="services-bg"
           class="services-bg"
         />
-        <div class="title-section">
+        <div class="title-section" data-aos="fade-up" data-aos-duration="1000">
           <h2>Services</h2>
           <img src="./assets/images/line.png" alt="line" class="line" />
         </div>
-        <h2 class="service">BRANDING</h2>
-        <h2 class="service">MARKETING</h2>
-        <h2 class="service">STRATEGY</h2>
+        <h2 class="service" data-aos="fade-up" data-aos-duration="800">
+          BRANDING
+        </h2>
+        <h2
+          class="service"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="100"
+        >
+          MARKETING
+        </h2>
+        <h2
+          class="service"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="200"
+        >
+          STRATEGY
+        </h2>
 
-        <a href="#" class="site-btn">
-          <p>LET’S WORK TOGETHER</p>
+        <a
+          href="#"
+          class="site-btn"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          data-aos-delay="400"
+        >
+          <p>LET'S WORK TOGETHER</p>
           <img src="./assets/images/line.png" alt="line" />
         </a>
       </section>
@@ -278,30 +356,55 @@
       <!--Case Studies-->
       <section id="case-studies">
         <div class="container">
-          <div class="title-section">
+          <div
+            class="title-section"
+            data-aos="fade-up"
+            data-aos-duration="1000"
+          >
             <h2>Case Studies</h2>
             <img src="./assets/images/line.png" alt="line" class="line" />
           </div>
 
           <div class="case-summary">
-            <h4 class="case-intro">When stars align</h4>
+            <h4 class="case-intro" data-aos="fade-up" data-aos-duration="800">
+              When stars align
+            </h4>
 
             <div class="case-items">
-              <div class="pagination">
+              <div
+                class="pagination"
+                data-aos="fade-right"
+                data-aos-duration="800"
+              >
                 <span class="active">1</span><span>2</span><span>3</span
                 ><span>4</span><span>5</span>
               </div>
 
               <div class="case-item">
-                <div class="case-banner"></div>
-                <p class="case-content">
-                   We bring clarity to complexity — helping businesses grow with
+                <div
+                  class="case-banner"
+                  data-aos="fade-up"
+                  data-aos-duration="800"
+                ></div>
+                <p
+                  class="case-content"
+                  data-aos="fade-up"
+                  data-aos-duration="800"
+                  data-aos-delay="200"
+                >
+                  We bring clarity to complexity — helping businesses grow with
                   purpose by deeply understanding their consumers and
                   translating that insight into end-to-end strategy and
                   execution across every function of the business.
                 </p>
 
-                <a href="./case-study.html" class="site-btn">
+                <a
+                  href="./case-study.html"
+                  class="site-btn"
+                  data-aos="fade-up"
+                  data-aos-duration="800"
+                  data-aos-delay="400"
+                >
                   <p>Read More</p>
                   <img src="./assets/images/line.png" alt="line" />
                 </a>
@@ -314,7 +417,11 @@
       <!--Stories Section-->
       <section id="stories">
         <div class="container">
-          <div class="title-section">
+          <div
+            class="title-section"
+            data-aos="fade-up"
+            data-aos-duration="1000"
+          >
             <h5>BANTER & STORIES</h5>
             <h2>remixing it all</h2>
             <img src="./assets/images/line.png" alt="line" class="line" />
@@ -322,15 +429,29 @@
 
           <div class="stories">
             <!--Story-->
-            <div class="story">
+            <div class="story" data-aos="fade-up" data-aos-duration="800">
               <div class="inner-wrapper">
-                <div class="img-wrapper"></div>
+                <div
+                  class="img-wrapper"
+                  data-aos="fade-right"
+                  data-aos-duration="800"
+                ></div>
                 <div class="content">
-                  <p class="statement">
+                  <p
+                    class="statement"
+                    data-aos="fade-up"
+                    data-aos-duration="800"
+                    data-aos-delay="200"
+                  >
                     If you don't know where to start with brand strategy, start
                     here — Hardik's creativity is seriously inspiring.
                   </p>
-                  <div class="member">
+                  <div
+                    class="member"
+                    data-aos="fade-up"
+                    data-aos-duration="800"
+                    data-aos-delay="400"
+                  >
                     <h6>Lydia Kakutwi</h6>
                     <p class="role">Founding Partner</p>
                   </div>
@@ -344,15 +465,34 @@
             </div>
 
             <!--Story-->
-            <div class="story">
+            <div
+              class="story"
+              data-aos="fade-up"
+              data-aos-duration="800"
+              data-aos-delay="100"
+            >
               <div class="inner-wrapper">
-                <div class="img-wrapper"></div>
+                <div
+                  class="img-wrapper"
+                  data-aos="fade-right"
+                  data-aos-duration="800"
+                ></div>
                 <div class="content">
-                  <p class="statement">
+                  <p
+                    class="statement"
+                    data-aos="fade-up"
+                    data-aos-duration="800"
+                    data-aos-delay="300"
+                  >
                     If you don't know where to start with brand strategy, start
                     here — Hardik's creativity is seriously inspiring.
                   </p>
-                  <div class="member">
+                  <div
+                    class="member"
+                    data-aos="fade-up"
+                    data-aos-duration="800"
+                    data-aos-delay="500"
+                  >
                     <h6>Lydia Kakutwi</h6>
                     <p class="role">Founding Partner</p>
                   </div>
@@ -366,15 +506,34 @@
             </div>
 
             <!--Story-->
-            <div class="story">
+            <div
+              class="story"
+              data-aos="fade-up"
+              data-aos-duration="800"
+              data-aos-delay="200"
+            >
               <div class="inner-wrapper">
-                <div class="img-wrapper"></div>
+                <div
+                  class="img-wrapper"
+                  data-aos="fade-right"
+                  data-aos-duration="800"
+                ></div>
                 <div class="content">
-                  <p class="statement">
+                  <p
+                    class="statement"
+                    data-aos="fade-up"
+                    data-aos-duration="800"
+                    data-aos-delay="400"
+                  >
                     If you don't know where to start with brand strategy, start
                     here — Hardik's creativity is seriously inspiring.
                   </p>
-                  <div class="member">
+                  <div
+                    class="member"
+                    data-aos="fade-up"
+                    data-aos-duration="800"
+                    data-aos-delay="600"
+                  >
                     <h6>Lydia Kakutwi</h6>
                     <p class="role">Founding Partner</p>
                   </div>
@@ -396,37 +555,67 @@
 
         <div class="container">
           <div class="footer-cta">
-            <div class="title-section">
+            <div
+              class="title-section"
+              data-aos="fade-up"
+              data-aos-duration="1000"
+            >
               <h5>CURIOUS ABOUT WORKING TOGETHER?</h5>
-              <h2>Let’s talk</h2>
+              <h2>Let's talk</h2>
               <img src="./assets/images/line.png" alt="line" class="line" />
             </div>
 
             <!--CTA Form-->
             <form class="cta-form">
-              <div class="form-item">
+              <div class="form-item" data-aos="fade-up" data-aos-duration="800">
                 <label>Name*</label>
                 <input type="text" placeholder="Type name" />
               </div>
-              <div class="form-item">
+              <div
+                class="form-item"
+                data-aos="fade-up"
+                data-aos-duration="800"
+                data-aos-delay="100"
+              >
                 <label>Company*</label>
                 <input type="text" placeholder="Type company name" />
               </div>
-              <div class="form-item">
+              <div
+                class="form-item"
+                data-aos="fade-up"
+                data-aos-duration="800"
+                data-aos-delay="200"
+              >
                 <label>Phone*</label>
                 <input type="tel" placeholder="Type phone number" />
               </div>
-              <div class="form-item">
+              <div
+                class="form-item"
+                data-aos="fade-up"
+                data-aos-duration="800"
+                data-aos-delay="300"
+              >
                 <label>Email*</label>
                 <input type="email" placeholder="Type email" />
               </div>
-              <div class="form-item">
+              <div
+                class="form-item"
+                data-aos="fade-up"
+                data-aos-duration="800"
+                data-aos-delay="400"
+              >
                 <label>How can I help?*</label>
                 <input type="text" placeholder="A brief description here" />
               </div>
 
               <!--Submit Button-->
-              <button type="submit" class="submit-btn">
+              <button
+                type="submit"
+                class="submit-btn"
+                data-aos="fade-up"
+                data-aos-duration="800"
+                data-aos-delay="600"
+              >
                 <p>Send Message</p>
                 <img src="./assets/images/line.png" alt="line" />
               </button>
@@ -434,16 +623,34 @@
 
             <!--Info Card-->
             <div class="info">
-              <span class="info-card">INFO @NURAYA.CONSULTING</span>
+              <span class="info-card" data-aos="fade-up" data-aos-duration="800"
+                >INFO @NURAYA.CONSULTING</span
+              >
             </div>
           </div>
 
           <div class="footer-bar">
-            <p class="copy">Copyright Nuraya 2025</p>
+            <p class="copy" data-aos="fade-up" data-aos-duration="800">
+              Copyright Nuraya 2025
+            </p>
 
             <div class="footer-links">
-              <a href="#" class="footer-link">Privacy Policy</a>
-              <a href="#" class="footer-link">FAQ</a>
+              <a
+                href="#"
+                class="footer-link"
+                data-aos="fade-up"
+                data-aos-duration="800"
+                data-aos-delay="100"
+                >Privacy Policy</a
+              >
+              <a
+                href="#"
+                class="footer-link"
+                data-aos="fade-up"
+                data-aos-duration="800"
+                data-aos-delay="200"
+                >FAQ</a
+              >
             </div>
           </div>
         </div>
@@ -461,6 +668,17 @@
     <script src="./assets/js/lenis.min.js"></script>
     <script src="./assets/js/locomotive-scroll.min.js"></script>
     <script src="./assets/js/split-type.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="./assets/js/main.js"></script>
+
+    <script>
+      AOS.init({
+        duration: 1000,
+        easing: "ease-in-out",
+        once: false,
+        mirror: false,
+        offset: 100,
+      });
+    </script>
   </body>
 </html>

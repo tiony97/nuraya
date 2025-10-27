@@ -48,6 +48,37 @@ $(document).ready(function () {
   }
 });
 
+/* SCROLL TO TOP FUNCTIONALITY */
+function initScrollToTop() {
+  const scrollButton = document.getElementById("scrollToTop");
+
+  if (!scrollButton) return;
+
+  // Show/hide button based on scroll position
+  function toggleScrollButton() {
+    if (window.pageYOffset > 300) {
+      scrollButton.classList.add("visible");
+    } else {
+      scrollButton.classList.remove("visible");
+    }
+  }
+
+  // Scroll to top function
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
+
+  // Event listeners
+  window.addEventListener("scroll", toggleScrollButton);
+  scrollButton.addEventListener("click", scrollToTop);
+
+  // Initialize button state
+  toggleScrollButton();
+}
+
 /* INTRO ANIMATION - Only for homepage */
 function initIntroAnimation() {
   console.log("Starting intro animation");
@@ -452,6 +483,9 @@ $(document).ready(function () {
         initMenuAnimation();
       });
   }
+
+  // Initialize scroll to top
+  initScrollToTop();
 });
 
 /* CASE STUDY SLIDER */
