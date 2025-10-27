@@ -374,7 +374,8 @@ header .container .header-nav .slider-nav-btn :disabled {
   opacity: 0;
 }
 #intro-animation img.intro-logo {
-  width: 70%;
+  width: 50%;
+  max-width: 500px;
   height: auto;
   opacity: 0;
 }

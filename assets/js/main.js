@@ -54,7 +54,6 @@ function initIntroAnimation() {
 
   // Reset states
   gsap.set("main, header, footer", { opacity: 0, visibility: "hidden" });
-  gsap.set(".stagger-bars .bar", { scaleY: 0, transformOrigin: "top" });
   gsap.set("#intro-animation", { opacity: 1, visibility: "visible" });
   gsap.set("#intro-animation img", { opacity: 0 });
 
@@ -67,59 +66,72 @@ function initIntroAnimation() {
     },
   });
 
-  // Sequence the animations
+  // Clean sequence following exact requirements:
   introTL
-    // Animate intro images
+    // Step 1: intro-line appears from top and disappears
+    .fromTo(
+      ".intro-line",
+      {
+        opacity: 0,
+        y: -200, // Start above the viewport
+        height: "60vh",
+      },
+      {
+        opacity: 1,
+        y: 50,
+        height: "50vh",
+        duration: 0.5,
+        ease: "power2.out",
+      }
+    )
     .to(".intro-line", {
+      opacity: 0,
+      duration: 0.3,
+      ease: "power2.in",
+    })
+
+    // Step 2: intro-ppl appears and disappears after 0.3s
+    .to(
+      ".intro-ppl",
+      {
+        opacity: 1,
+        duration: 0.3,
+        ease: "power2.out",
+      },
+      "-=0.1"
+    )
+    .to(
+      ".intro-ppl",
+      {
+        opacity: 0,
+        duration: 0.3,
+        ease: "power2.in",
+      },
+      "+=0.3"
+    )
+
+    // Step 3: intro-logo appears and stays for 2 seconds
+    .to(".intro-logo", {
       opacity: 1,
-      height: "80vh",
-      duration: 1.5,
+      duration: 0.5,
       ease: "power2.out",
     })
-    .to(".intro-line", { opacity: 0, duration: 1, ease: "power2.in" }, "+=0.5")
-
-    .to(".intro-rect", { opacity: 1, duration: 1.2, ease: "power2.out" })
-    .to(
-      ".intro-rect",
-      { opacity: 0, duration: 0.8, ease: "power2.in" },
-      "+=0.3"
-    )
-
-    .to(".intro-ppl", { opacity: 1, duration: 1.2, ease: "power2.out" })
-    .to(".intro-ppl", { opacity: 0, duration: 0.8, ease: "power2.in" }, "+=0.3")
-
-    .to(".intro-logo", { opacity: 1, duration: 1.2, ease: "power2.out" })
     .to(
       ".intro-logo",
-      { opacity: 0, duration: 0.8, ease: "power2.in" },
-      "+=0.3"
+      {
+        opacity: 0,
+        duration: 0.5,
+        ease: "power2.in",
+      },
+      "+=1.5" // Wait 1.5 seconds + 0.5s fade out = ~2 seconds total
     )
-
-    // Stagger bars animation
-    .to(".stagger-bars .bar", {
-      scaleY: 1,
-      duration: 0.8,
-      stagger: {
-        each: 0.1,
-        from: "center",
-        ease: "power3.inOut",
-      },
-    })
-    .to(".stagger-bars .bar", {
-      scaleY: 0,
-      duration: 0.6,
-      stagger: {
-        each: 0.08,
-        from: "edges",
-        ease: "power3.inOut",
-      },
-    })
 
     // Hide intro container
     .to("#intro-animation", {
+      height: 0,
       opacity: 0,
       visibility: "hidden",
-      duration: 0.5,
+      duration: 0.3,
       ease: "power2.out",
     });
 }
