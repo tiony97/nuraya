@@ -35,6 +35,9 @@ $(document).ready(function () {
     });
   }
 
+  // Initialize background video immediately
+  initBackgroundVideo();
+
   // Check if we're on homepage (has intro animation) or case study page
   if ($("#intro-animation").length > 0) {
     console.log("Homepage detected - starting intro animation");
@@ -47,6 +50,34 @@ $(document).ready(function () {
     showContentImmediately();
   }
 });
+
+/* BACKGROUND VIDEO HANDLING */
+function initBackgroundVideo() {
+  console.log("Initializing background video");
+
+  const videoContainer = document.getElementById("background-video");
+  const video = videoContainer?.querySelector("video");
+
+  if (!video) {
+    console.error("Background video not found");
+    return;
+  }
+
+  // Ensure video plays and handles errors
+  video.addEventListener("loadeddata", function () {
+    console.log("Background video loaded successfully");
+    video.play().catch((e) => console.log("Video autoplay prevented:", e));
+  });
+
+  video.addEventListener("error", function (e) {
+    console.error("Video loading error:", e);
+  });
+
+  // Fallback: if video fails to load, show static background
+  video.addEventListener("error", function () {
+    videoContainer.style.background = "var(--background-color)";
+  });
+}
 
 /* SCROLL TO TOP FUNCTIONALITY */
 function initScrollToTop() {
@@ -81,30 +112,46 @@ function initScrollToTop() {
 
 /* INTRO ANIMATION - Only for homepage */
 function initIntroAnimation() {
-  console.log("Starting intro animation");
+  console.log("Starting intro animation with background video");
+
+  // Initialize video immediately
+  initBackgroundVideo();
 
   // Reset states
   gsap.set("main, header, footer", { opacity: 0, visibility: "hidden" });
   gsap.set("#intro-animation", { opacity: 1, visibility: "visible" });
   gsap.set("#intro-animation img", { opacity: 0 });
 
-  // Create main intro timeline
   const introTL = gsap.timeline({
     onComplete: function () {
       console.log("Intro animation complete");
       document.body.classList.add("intro-complete");
+
+      // Show main content
+      gsap.to("main, header, footer", {
+        opacity: 1,
+        visibility: "visible",
+        duration: 0.5,
+      });
+
+      // Hide intro container
+      gsap.to("#intro-animation", {
+        opacity: 0,
+        visibility: "hidden",
+        duration: 0.3,
+      });
+
       initBannerAnimation();
     },
   });
 
-  // Clean sequence following exact requirements:
+  // Your original animation sequence remains the same
   introTL
-    // Step 1: intro-line appears from top and disappears
     .fromTo(
       ".intro-line",
       {
         opacity: 0,
-        y: -200, // Start above the viewport
+        y: -200,
         height: "60vh",
       },
       {
@@ -120,8 +167,6 @@ function initIntroAnimation() {
       duration: 0.3,
       ease: "power2.in",
     })
-
-    // Step 2: intro-ppl appears and disappears after 0.3s
     .to(
       ".intro-ppl",
       {
@@ -140,8 +185,6 @@ function initIntroAnimation() {
       },
       "+=0.3"
     )
-
-    // Step 3: intro-logo appears and stays for 2 seconds
     .to(".intro-logo", {
       opacity: 1,
       duration: 0.5,
@@ -154,10 +197,8 @@ function initIntroAnimation() {
         duration: 0.5,
         ease: "power2.in",
       },
-      "+=1.5" // Wait 1.5 seconds + 0.5s fade out = ~2 seconds total
+      "+=1.5"
     )
-
-    // Hide intro container
     .to("#intro-animation", {
       height: 0,
       opacity: 0,
@@ -169,13 +210,16 @@ function initIntroAnimation() {
 
 /* CASE STUDY PAGE - Immediate content display */
 function initCaseStudyPage() {
-  console.log("Initializing case study page");
+  console.log("Initializing case study page with background video");
 
   // Show all content immediately
   gsap.set("main, header, footer, .slider-controls, .slider-progress", {
     opacity: 1,
     visibility: "visible",
   });
+
+  // Initialize background video
+  initBackgroundVideo();
 
   // Initialize case study slider
   initCaseStudySlider();
