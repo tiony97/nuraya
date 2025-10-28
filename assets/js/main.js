@@ -1,3 +1,110 @@
+/* PARTICLE ANIMATION - DUST STORM */
+function initParticles() {
+  if (typeof particlesJS !== "undefined") {
+    particlesJS("particles-js", {
+      particles: {
+        number: {
+          value: 400, // Even more particles for dense dust
+          density: {
+            enable: true,
+            value_area: 1000,
+          },
+        },
+        color: {
+          value: ["#fffaf0", "#fef9e7", "#fdf6e3", "#fcf5e3", "#faf3e0"],
+        },
+        shape: {
+          type: "edge", // Edge creates more irregular shapes
+          stroke: {
+            width: 0,
+            color: "#000000",
+          },
+          polygon: {
+            nb_sides: [3, 5, 7], // More irregular shapes
+          },
+        },
+        opacity: {
+          value: 0.3, // Very subtle for depth
+          random: true,
+          anim: {
+            enable: true,
+            speed: 0.8,
+            opacity_min: 0.05, // Very faint minimum
+            sync: false,
+          },
+        },
+        size: {
+          value: 2,
+          random: true,
+          anim: {
+            enable: true,
+            speed: 3,
+            size_min: 0.5,
+            sync: false,
+          },
+        },
+        line_linked: {
+          enable: false,
+        },
+        move: {
+          enable: true,
+          speed: 3, // Faster for storm effect
+          direction: "bottom-right", // Diagonal movement
+          random: true,
+          straight: false,
+          out_mode: "out",
+          bounce: false,
+          attract: {
+            enable: true, // Enable attraction for swirling
+            rotateX: 800,
+            rotateY: 1600,
+          },
+        },
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: {
+            enable: true,
+            mode: "grab",
+          },
+          onclick: {
+            enable: true,
+            mode: "push",
+          },
+          resize: true,
+        },
+        modes: {
+          grab: {
+            distance: 200,
+            line_linked: {
+              opacity: 0.3,
+            },
+          },
+          bubble: {
+            distance: 200,
+            size: 4,
+            duration: 1,
+            opacity: 0.6,
+            speed: 2,
+          },
+          repulse: {
+            distance: 150,
+            duration: 0.5,
+          },
+          push: {
+            particles_nb: 6,
+          },
+          remove: {
+            particles_nb: 3,
+          },
+        },
+      },
+      retina_detect: true,
+    });
+  }
+}
+
 /* CUSTOM CURSOR */
 $(document).ready(function () {
   // Initialize cursor
@@ -46,6 +153,9 @@ $(document).ready(function () {
     console.log("Other page detected - showing content immediately");
     showContentImmediately();
   }
+
+  // Initialize particles after page type detection
+  setTimeout(initParticles, 500); // Small delay to ensure DOM is ready
 });
 
 /* SCROLL TO TOP FUNCTIONALITY */
@@ -81,88 +191,170 @@ function initScrollToTop() {
 
 /* INTRO ANIMATION - Only for homepage */
 function initIntroAnimation() {
-  console.log("Starting intro animation");
+  console.log("Starting intro animation with dust particles");
 
-  // Reset states
+  // Reset all states
   gsap.set("main, header, footer", { opacity: 0, visibility: "hidden" });
   gsap.set("#intro-animation", { opacity: 1, visibility: "visible" });
   gsap.set("#intro-animation img", { opacity: 0 });
+  gsap.set("#particles-js", { opacity: 0 });
+
+  // Initialize particles immediately but hidden
+  initParticles();
+  document.body.classList.add("intro-active");
 
   // Create main intro timeline
   const introTL = gsap.timeline({
     onComplete: function () {
       console.log("Intro animation complete");
       document.body.classList.add("intro-complete");
+      document.body.classList.remove("intro-active");
+
+      // Reduce particle opacity for main content
+      gsap.to("#particles-js", {
+        opacity: 0.6,
+        duration: 1.5,
+        ease: "power2.out",
+      });
+
       initBannerAnimation();
     },
   });
 
-  // Clean sequence following exact requirements:
+  // Complete animation sequence with particles integrated
   introTL
-    // Step 1: intro-line appears from top and disappears
+    // Step 1: Fade in particles at the very beginning
+    .to("#particles-js", {
+      opacity: 1,
+      duration: 0.8,
+      ease: "power2.out",
+    })
+
+    // Step 2: intro-line appears from top with particles visible
     .fromTo(
       ".intro-line",
       {
         opacity: 0,
-        y: -200, // Start above the viewport
+        y: -200,
         height: "60vh",
+        rotation: -5,
       },
       {
         opacity: 1,
         y: 50,
         height: "50vh",
+        rotation: 0,
         duration: 0.5,
         ease: "power2.out",
-      }
+      },
+      "-=0.3" // Overlap slightly with particle fade-in
     )
+
+    // Step 3: intro-line disappears while particles continue
     .to(".intro-line", {
       opacity: 0,
+      scale: 0.8,
       duration: 0.3,
       ease: "power2.in",
     })
 
-    // Step 2: intro-ppl appears and disappears after 0.3s
+    // Step 4: intro-ppl appears with enhanced particle activity
     .to(
       ".intro-ppl",
       {
         opacity: 1,
-        duration: 0.3,
+        scale: 1.1,
+        duration: 0.4,
         ease: "power2.out",
       },
       "-=0.1"
     )
+
+    // Step 5: Increase particle density temporarily during ppl display
+    .to(
+      "#particles-js",
+      {
+        opacity: 0.9,
+        duration: 0.2,
+        ease: "power1.inOut",
+      },
+      "-=0.3"
+    )
+
+    // Step 6: intro-ppl disappears
     .to(
       ".intro-ppl",
       {
         opacity: 0,
+        scale: 0.9,
         duration: 0.3,
         ease: "power2.in",
       },
       "+=0.3"
     )
 
-    // Step 3: intro-logo appears and stays for 2 seconds
+    // Step 7: Return particles to normal density
+    .to(
+      "#particles-js",
+      {
+        opacity: 0.7,
+        duration: 0.3,
+        ease: "power1.out",
+      },
+      "-=0.2"
+    )
+
+    // Step 8: intro-logo appears with dramatic particle backdrop
     .to(".intro-logo", {
       opacity: 1,
-      duration: 0.5,
-      ease: "power2.out",
+      scale: 1,
+      duration: 0.6,
+      ease: "back.out(1.7)",
     })
+
+    // Step 9: Slight particle intensification during logo display
+    .to(
+      "#particles-js",
+      {
+        opacity: 0.8,
+        duration: 0.5,
+        ease: "power1.inOut",
+      },
+      "-=0.5"
+    )
+
+    // Step 10: Hold logo with particles for 1.5 seconds
+    .to({}, { duration: 1.5 })
+
+    // Step 11: intro-logo disappears with particle fade
     .to(
       ".intro-logo",
       {
         opacity: 0,
+        scale: 1.2,
         duration: 0.5,
         ease: "power2.in",
       },
-      "+=1.5" // Wait 1.5 seconds + 0.5s fade out = ~2 seconds total
+      "-=0.1"
     )
 
-    // Hide intro container
+    // Step 12: Final particle adjustment before revealing content
+    .to(
+      "#particles-js",
+      {
+        opacity: 0.6,
+        duration: 0.4,
+        ease: "power2.out",
+      },
+      "-=0.3"
+    )
+
+    // Step 13: Hide intro container while keeping particles
     .to("#intro-animation", {
       height: 0,
       opacity: 0,
       visibility: "hidden",
-      duration: 0.3,
+      duration: 0.4,
       ease: "power2.out",
     });
 }

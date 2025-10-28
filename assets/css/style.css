@@ -111,6 +111,31 @@ ul {
   margin: 0 auto;
 }
 
+main {
+  z-index: 1;
+}
+
+/* ---- particles.js container ---- */
+#particles-js {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  background-image: url("");
+  background-repeat: no-repeat;
+  background-size: 20%;
+  background-position: 50% 50%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 1 !important;
+  transition: opacity 1s ease-in-out;
+}
+.intro-active #particles-js {
+  opacity: 1;
+}
+
 .main-btn {
   background: transparent;
   font-size: 11px;
@@ -151,7 +176,7 @@ ul {
   height: 0;
   z-index: 9999;
   overflow: hidden;
-  background: var(--background-color);
+  background: transparent;
 }
 .overlay-menu.active {
   height: 100vh;
@@ -291,6 +316,7 @@ ul {
   background: var(--primary-accent-color);
   color: var(--background-color);
   border: none;
+  outline: none;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
@@ -380,7 +406,7 @@ header .container .header-nav .slider-nav-btn :disabled {
   left: 0;
   width: 100%;
   height: 100vh;
-  background: var(--background-color);
+  background: transparent;
   z-index: 9999;
   display: flex;
   justify-content: center;
@@ -388,6 +414,7 @@ header .container .header-nav .slider-nav-btn :disabled {
 }
 #intro-animation img {
   position: absolute;
+  z-index: 10000; /* Above particles */
 }
 #intro-animation img.intro-line {
   width: auto;
@@ -1489,6 +1516,19 @@ footer .container .footer-bar .footer-links .footer-link:hover {
   }
 }
 /* Case Study Page Specific Styles */
+/* Ensure case study content appears above particles */
+.case-study-slider,
+.slide,
+.slider-controls,
+.slider-progress,
+#site-header {
+  z-index: 2;
+}
+
+#site-header {
+  z-index: 10;
+}
+
 .case-study-slider {
   position: relative;
   width: 100%;

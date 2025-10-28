@@ -103,6 +103,33 @@ ul {
   margin: 0 auto;
 }
 
+main {
+  z-index: 1;
+}
+
+/* ---- particles.js container ---- */
+#particles-js {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  background-image: url("");
+  background-repeat: no-repeat;
+  background-size: 20%;
+  background-position: 50% 50%;
+  z-index: 0; // Behind all content
+  pointer-events: none;
+  opacity: 1 !important;
+  transition: opacity 1s ease-in-out;
+
+  // Show during intro animation
+  .intro-active & {
+    opacity: 1;
+  }
+}
+
 //Common Button Styles
 .main-btn {
   background: transparent;
@@ -149,7 +176,7 @@ ul {
   height: 0;
   z-index: 9999;
   overflow: hidden;
-  background: var(--background-color);
+  background: transparent;
 
   // Ensure it's visible when active
   &.active {
@@ -306,6 +333,7 @@ ul {
   background: var(--primary-accent-color);
   color: var(--background-color);
   border: none;
+  outline: none;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
@@ -391,7 +419,7 @@ header {
   left: 0;
   width: 100%;
   height: 100vh;
-  background: var(--background-color);
+  background: transparent;
   z-index: 9999;
   display: flex;
   justify-content: center;
@@ -399,6 +427,7 @@ header {
 
   img {
     position: absolute;
+    z-index: 10000; /* Above particles */
 
     &.intro-line {
       width: auto;

@@ -1,4 +1,17 @@
 /* Case Study Page Specific Styles */
+/* Ensure case study content appears above particles */
+.case-study-slider,
+.slide,
+.slider-controls,
+.slider-progress,
+#site-header {
+  z-index: 2; // Above particles
+}
+
+#site-header {
+  z-index: 10;
+}
+
 .case-study-slider {
   position: relative;
   width: 100%;
