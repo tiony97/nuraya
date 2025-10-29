@@ -904,7 +904,133 @@ function initTeamBioPopup() {
     }
   });
 }
+
+/* ANIMATED CASE STUDY SLIDER */
+function initCaseStudySlider() {
+  const pagination = $(".pagination span");
+  const slides = $(".case-slide");
+  let currentSlide = 1;
+  let isAnimating = false;
+
+  console.log("Initializing case study slider...");
+  console.log("Pagination items:", pagination.length);
+  console.log("Slides found:", slides.length);
+
+  // Initialize first slide
+  function initializeFirstSlide() {
+    // Ensure first slide is visible and has proper styling
+    $('.case-slide[data-slide="1"]').addClass("active").show();
+    $('.pagination span[data-slide="1"]').addClass("active");
+  }
+
+  function goToSlide(slideNumber) {
+    if (isAnimating || slideNumber === currentSlide) return;
+
+    console.log("Navigating to slide:", slideNumber);
+    isAnimating = true;
+    const direction = slideNumber > currentSlide ? 1 : -1;
+
+    // Update pagination
+    pagination.removeClass("active");
+    $(`.pagination span[data-slide="${slideNumber}"]`).addClass("active");
+
+    // Get current and next slides
+    const currentActive = $(".case-slide.active");
+    const nextSlide = $(`.case-slide[data-slide="${slideNumber}"]`);
+
+    console.log("Current active:", currentActive.length);
+    console.log("Next slide:", nextSlide.length);
+
+    if (nextSlide.length === 0) {
+      console.error("Next slide not found!");
+      isAnimating = false;
+      return;
+    }
+
+    // Create animation timeline
+    const slideTL = gsap.timeline({
+      onComplete: () => {
+        isAnimating = false;
+        currentSlide = slideNumber;
+        console.log("Slide transition complete. Current slide:", currentSlide);
+      },
+    });
+
+    // Exit current slide
+    slideTL
+      .to(currentActive, {
+        x: -100 * direction,
+        opacity: 0,
+        duration: 0.6,
+        ease: "power2.inOut",
+      })
+      .call(
+        () => {
+          currentActive.removeClass("active");
+        },
+        null,
+        "-=0.6"
+      )
+
+      // Prepare and enter new slide
+      .set(nextSlide, {
+        x: 100 * direction,
+        opacity: 0,
+        display: "flex",
+      })
+      .to(nextSlide, {
+        x: 0,
+        opacity: 1,
+        duration: 0.7,
+        ease: "power2.out",
+      })
+      .call(
+        () => {
+          nextSlide.addClass("active");
+        },
+        null,
+        "-=0.7"
+      );
+  }
+
+  // Initialize slider
+  function initSlider() {
+    // Initialize first slide
+    initializeFirstSlide();
+
+    // Pagination click events
+    pagination.on("click", function () {
+      const slideNumber = parseInt($(this).data("slide"));
+      console.log("Pagination clicked, slide:", slideNumber);
+      goToSlide(slideNumber);
+    });
+
+    // Keyboard navigation
+    $(document).on("keydown", function (e) {
+      if (e.key === "ArrowRight" && currentSlide < pagination.length) {
+        goToSlide(currentSlide + 1);
+      } else if (e.key === "ArrowLeft" && currentSlide > 1) {
+        goToSlide(currentSlide - 1);
+      }
+    });
+
+    console.log("Case study slider initialized successfully");
+  }
+
+  // Wait for DOM to be fully ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initSlider);
+  } else {
+    initSlider();
+  }
+}
+
 // Initialize team bio popup
 $(document).ready(function () {
   initTeamBioPopup();
+
+  // Initialize case study slider
+  if ($("#case-studies").length) {
+    initCaseStudySlider();
+  }
 });
