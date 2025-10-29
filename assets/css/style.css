@@ -691,6 +691,109 @@ body.intro-complete #intro-animation {
   background-color: #021812;
 }
 
+.team-bio-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99999;
+  display: none;
+}
+.team-bio-popup.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.team-bio-popup .popup-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(4, 45, 34, 0.95);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+}
+.team-bio-popup .popup-content {
+  position: relative;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  background: var(--background-color);
+  border: 1px solid var(--primary-accent-color);
+  padding: 3rem;
+  border-radius: 10px;
+  overflow-y: auto;
+  z-index: 10;
+}
+.team-bio-popup .popup-content .close-popup {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--foreground-color);
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: color 0.3s ease;
+  z-index: 11;
+}
+.team-bio-popup .popup-content .close-popup:hover {
+  color: var(--secondary-accent-color);
+}
+.team-bio-popup .popup-content .close-popup svg {
+  width: 20px;
+  height: 20px;
+}
+.team-bio-popup .popup-content .bio-content {
+  text-align: center;
+}
+.team-bio-popup .popup-content .bio-content .member-name {
+  font-size: 2rem;
+  color: var(--secondary-accent-color);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+.team-bio-popup .popup-content .bio-content .member-role {
+  color: var(--primary-accent-color);
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.team-bio-popup .popup-content .bio-content .bio-details .bio-text {
+  line-height: 1.8;
+  color: var(--foreground-color);
+  font-size: 1rem;
+  text-align: left;
+}
+
+@media (max-width: 768px) {
+  .team-bio-popup .popup-content {
+    padding: 2rem 1.5rem;
+    margin: 1rem;
+    max-height: 85vh;
+  }
+  .team-bio-popup .popup-content .bio-content .member-name {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+  }
+  .team-bio-popup .popup-content .bio-content .member-role {
+    font-size: 1rem;
+  }
+  .team-bio-popup .popup-content .bio-content .bio-details .bio-text {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .team-bio-popup .popup-content .close-popup {
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+  .team-bio-popup .popup-content .close-popup svg {
+    width: 18px;
+    height: 18px;
+  }
+}
 #services {
   height: -moz-fit-content;
   height: fit-content;

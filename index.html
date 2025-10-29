@@ -240,7 +240,7 @@
                   <h6>Lydia Kakutwi</h6>
                   <p>Founding Partner</p>
                 </div>
-                <a href="#" class="site-btn">
+                <a href="#" class="site-btn view-bio-btn" data-member="lydia">
                   <p>VIEW BIO</p>
                   <img src="./assets/images/line.png" alt="line" />
                 </a>
@@ -255,7 +255,11 @@
                   <h6>Njiraini Marima</h6>
                   <p>Founding Partner</p>
                 </div>
-                <a href="#" class="site-btn">
+                <a
+                  href="#"
+                  class="site-btn view-bio-btn"
+                  data-member="njiraini"
+                >
                   <p>VIEW BIO</p>
                   <img src="./assets/images/line.png" alt="line" />
                 </a>
@@ -270,7 +274,7 @@
                   <h6>Paul Murugu</h6>
                   <p>Founding Partner</p>
                 </div>
-                <a href="#" class="site-btn">
+                <a href="#" class="site-btn view-bio-btn" data-member="paul">
                   <p>VIEW BIO</p>
                   <img src="./assets/images/line.png" alt="line" />
                 </a>
@@ -288,7 +292,7 @@
                   <h6>Grace Roimen</h6>
                   <p>Founding Partner</p>
                 </div>
-                <a href="#" class="site-btn">
+                <a href="#" class="site-btn view-bio-btn" data-member="grace">
                   <p>VIEW BIO</p>
                   <img src="./assets/images/line.png" alt="line" />
                 </a>
@@ -303,10 +307,33 @@
                   <h6>Brenda Mwancha</h6>
                   <p>Founding Partner</p>
                 </div>
-                <a href="#" class="site-btn">
+                <a href="#" class="site-btn view-bio-btn" data-member="brenda">
                   <p>VIEW BIO</p>
                   <img src="./assets/images/line.png" alt="line" />
                 </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Team Bio Popup -->
+        <div id="team-bio-popup" class="team-bio-popup">
+          <div class="popup-overlay"></div>
+          <div class="popup-content">
+            <button id="close-bio-popup" class="close-popup">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M18 6L6 18M6 6l12 12"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+              </svg>
+            </button>
+            <div class="bio-content">
+              <h3 class="member-name"></h3>
+              <p class="member-role"></p>
+              <div class="bio-details">
+                <p class="bio-text"></p>
               </div>
             </div>
           </div>
@@ -663,7 +690,7 @@
     <!--JS-->
     <!-- particles.js lib -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    
+
     <script src="./assets/js/all.min.js"></script>
     <script src="./assets/js/barba.js"></script>
     <script src="./assets/js/jquery.min.js"></script>

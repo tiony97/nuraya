@@ -775,3 +775,136 @@ function initCaseStudySlider() {
   // Initialize the slider
   initSlider();
 }
+
+/* TEAM BIO POPUP */
+function initTeamBioPopup() {
+  const popup = $("#team-bio-popup");
+  const overlay = $(".popup-overlay");
+  const closeBtn = $("#close-bio-popup");
+
+  // Team member data
+  const teamData = {
+    lydia: {
+      name: "Lydia Kakutwi",
+      role: "Founding Partner",
+      bio: "Lydia brings over 15 years of experience in strategic consulting with a focus on consumer insights and market analysis. Her expertise has helped numerous Fortune 500 companies transform their business strategies and achieve sustainable growth through data-driven decision making.",
+    },
+    njiraini: {
+      name: "Njiraini Marima",
+      role: "Founding Partner",
+      bio: "Njiraini specializes in operational excellence and supply chain optimization. With a background in engineering and business management, he has successfully led transformation projects across multiple industries, delivering significant cost savings and efficiency improvements.",
+    },
+    paul: {
+      name: "Paul Murugu",
+      role: "Founding Partner",
+      bio: "Paul is a marketing and branding expert with a proven track record of building iconic brands. His creative approach to brand strategy combined with analytical rigor has helped clients establish strong market positions and connect deeply with their target audiences.",
+    },
+    grace: {
+      name: "Grace Roimen",
+      role: "Founding Partner",
+      bio: "Grace leads our financial consulting practice, bringing extensive experience in corporate finance and investment strategy. Her innovative financial models and risk assessment frameworks have been instrumental in guiding clients through complex financial decisions.",
+    },
+    brenda: {
+      name: "Brenda Mwancha",
+      role: "Founding Partner",
+      bio: "Brenda is our technology and digital transformation lead. She has spearheaded numerous digital innovation projects, helping traditional businesses adapt to the digital age while maintaining their core values and customer relationships.",
+    },
+  };
+
+  // Open popup function
+  function openBioPopup(memberKey) {
+    const memberData = teamData[memberKey];
+    if (!memberData) return;
+
+    // Update popup content
+    $(".member-name").text(memberData.name);
+    $(".member-role").text(memberData.role);
+    $(".bio-text").text(memberData.bio);
+
+    // Create animation timeline
+    const popupTL = gsap.timeline();
+
+    popupTL
+      .set(popup, { display: "flex" }) // Use 'flex' for flexbox centering
+      .fromTo(
+        overlay,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.4, ease: "power2.out" }
+      )
+      .fromTo(
+        ".popup-content",
+        {
+          opacity: 0,
+          scale: 0.7,
+          y: -20, // Slight vertical offset for better animation
+        },
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          duration: 0.6,
+          ease: "back.out(1.2)",
+        },
+        "-=0.2"
+      );
+
+    popup.addClass("active");
+    $("body").addClass("hideScroll");
+  }
+
+  // Close popup function
+  function closeBioPopup() {
+    const closeTL = gsap.timeline({
+      onComplete: function () {
+        popup.removeClass("active");
+        $("body").removeClass("hideScroll");
+        gsap.set(popup, { display: "none" });
+      },
+    });
+
+    closeTL
+      .to(".popup-content", {
+        opacity: 0,
+        scale: 0.8,
+        y: 50,
+        duration: 0.4,
+        ease: "power2.in",
+      })
+      .to(
+        overlay,
+        {
+          opacity: 0,
+          duration: 0.3,
+          ease: "power2.out",
+        },
+        "-=0.2"
+      );
+  }
+
+  // Event listeners - FIXED VERSION
+  $(document).on("click", ".view-bio-btn", function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const memberKey = $(this).data("member");
+    console.log("View Bio clicked for:", memberKey); // Debug log
+
+    if (memberKey && teamData[memberKey]) {
+      openBioPopup(memberKey);
+    }
+  });
+
+  closeBtn.on("click", closeBioPopup);
+  overlay.on("click", closeBioPopup);
+
+  // Close on ESC key
+  $(document).on("keydown", function (e) {
+    if (e.keyCode === 27 && popup.hasClass("active")) {
+      closeBioPopup();
+    }
+  });
+}
+// Initialize team bio popup
+$(document).ready(function () {
+  initTeamBioPopup();
+});
