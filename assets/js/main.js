@@ -11,7 +11,7 @@ function initParticles() {
           },
         },
         color: {
-          value: ["#fffaf0", "#fef9e7", "#fdf6e3", "#fcf5e3", "#faf3e0"],
+          value: ["#bd892f", "#eac931", "#d0a32a", "#f4ca44", "#ffd700"],
         },
         shape: {
           type: "edge", // Edge creates more irregular shapes
@@ -48,12 +48,12 @@ function initParticles() {
         },
         move: {
           enable: true,
-          speed: 3, // Faster for storm effect
+          speed: 1, // lower speed for dust drift
           direction: "bottom-right", // Diagonal movement
           random: true,
           straight: false,
           out_mode: "out",
-          bounce: false,
+          bounce: true,
           attract: {
             enable: true, // Enable attraction for swirling
             rotateX: 800,
